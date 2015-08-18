@@ -1,0 +1,87 @@
+From armin.ronacher at active-4.com  Fri Feb 10 14:05:00 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Fri, 10 Feb 2006 14:05:00 +0100
+Subject: [Pocoo-wsgi] Re: colubrid...
+In-Reply-To: <43EA1D0F.6020807@lists.berlios.de>
+References: <1131141877.28078.3.camel@localhost.localdomain>
+	 <43EA1D0F.6020807@lists.berlios.de>
+Message-ID: <1139576701.10792.16.camel@localhost.localdomain>
+
+Hiho,
+
+On Wed, 2006-02-08 at 17:32 +0100, pocoo-wsgi at lists.berlios.de wrote:
+> Ich baue ja gerade PyLucid zu WSGI um und nutzte Colubrid...
+> 
+> Mal so generell... Ich finde keine offiziell M?glichkeit ?ber Colubrid 
+> zu reden. Ich kann zwar im Python-Forum immer mal wieder eine Frage 
+> stellen, was etvl. f?r die anderen auch interessant w?re, aber eine 
+> Maillingliste ist vielleicht besser...
+Ist ja auch eine Mailingliste :-)
+
+> Auf http://wsgiarea.pocoo.org/colubrid/ steht dazu nix.
+Werde ich aber dazuschreiben. *notier*
+
+> Also zu meiner Frage:
+> 
+> Ich ?berlege gerade wie ich am besten den Tag 
+> "<lucidTag:script_duration/>" ausf?llen kann... Der gibt die Renderzeit 
+> der Seite an... Er sollte somit m?glichst zum Schlu? erscheinen. Da ich 
+> ja nun nach self.request.write() schreibe, frage ich mich, ob ich da am 
+> Ende noch ein String-Replace machen kann?!?!?
+Du meinst, wenn die Seite zum Browser gesendet wird, wird jedes
+"<lucidTag:script_duration/>" im Buffer zu einem HTML Tag ersetzt? Find
+ich etwas dumm, was ist, wenn einer den String in ein Kommentarfeld
+schreibt?
+
+Ich verstehe jetzt die Frage nicht so richtig *kopfkratz*
+
+Regards,
+Armin
+-- 
+ubuntuusers :: fragen ist menschlich
+http://www.ubuntuusers.de
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/pocoo-wsgi/attachments/20060210/fcc25c5e/attachment.pgp>
+
+From armin.ronacher at active-4.com  Fri Feb 10 15:46:56 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Fri, 10 Feb 2006 15:46:56 +0100
+Subject: [Pocoo-wsgi] Re: colubrid...
+In-Reply-To: <43ECA425.7090103@jensdiemer.de>
+References: <1131141877.28078.3.camel@localhost.localdomain>
+	 <43EA1D0F.6020807@lists.berlios.de>
+	 <1139576701.10792.16.camel@localhost.localdomain>
+	 <43ECA425.7090103@jensdiemer.de>
+Message-ID: <1139582816.10792.19.camel@localhost.localdomain>
+
+Hiho,
+
+On Fri, 2006-02-10 at 15:33 +0100, jens diemer wrote:
+> > Ich verstehe jetzt die Frage nicht so richtig *kopfkratz*
+> 
+> Ich denke du hast es schon richtig erkannt :) Das Tag wird einfach mit 
+> string.replace() ersetzt...
+> 
+> Aber wie kann ich das besser machen?
+
+Ich w?rde das mit einer WSGI Middleware machen, die die Ausgabe deines
+Programms durch ein paar regex laufen l?sst.
+
+Regards,
+Armin
+-- 
+ubuntuusers :: fragen ist menschlich
+http://www.ubuntuusers.de
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/pocoo-wsgi/attachments/20060210/f05f8ab0/attachment.pgp>
+

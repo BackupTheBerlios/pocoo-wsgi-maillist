@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/pocoo-wsgi/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%20arguments&In-Reply-To=%3CXFMail.20060612004018.rk-list%40koebler.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000011.html">
+   <LINK REL="Next"  HREF="000008.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments</H1>
+    <B>rk-list at koebler.com</B> 
+    <A HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%20arguments&In-Reply-To=%3CXFMail.20060612004018.rk-list%40koebler.com%3E"
+       TITLE="[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments">rk-list at koebler.com
+       </A><BR>
+    <I>Mon Jun 12 00:40:18 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000011.html">[Pocoo-wsgi] jinja: documentation ?
+</A></li>
+        <LI>Next message: <A HREF="000008.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi,
+
+I've got 2 questions about jinja:
+
+
+1. I want to display a defined number of lines - and if an appr. element of a
+list exists, it should be displayed.
+
+like (in python):
+list = ['a','b','c']
+for i in range(0,10):
+  print i,
+  if( i&lt;=len(list) ): print list[i],
+  print
+
+in jinja, I would write it like:
+{% range i from 0 to 9 %}
+  - {{loop.current}} {{ list.i }}
+{% endrange %}
+but &quot;list.i&quot; does not work, and something like &quot;list[i]&quot; is not possible.
+
+so I tried something different:
+{% for elem in list %}
+  - {{loop.current}} {{ elem }}
+  {% if loop.last %} {* add &quot;empty&quot; lines *}
+    {% range j from loop.current to 10 %}
+      - {{j}}
+    {% endrange %}
+  {% endif %}
+{% endfor %}
+but unfortunately, this also doesn't work because &quot;range&quot; only takes integers.
+
+is there any solution for this ?
+
+
+2. is it possible to do some arithmetics in jinja ?
+i.e. {{ number + 5 }} or {{ 1 + 2 + 4 }}
+do I have to define a special tag for this, or is there anything else ?
+
+
+thanks,
+Roland
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000011.html">[Pocoo-wsgi] jinja: documentation ?
+</A></li>
+	<LI>Next message: <A HREF="000008.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/pocoo-wsgi">More information about the pocoo-wsgi
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,16 @@
+From armin.ronacher at active-4.com  Fri Nov  4 23:04:37 2005
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Fri, 04 Nov 2005 23:04:37 +0100
+Subject: [Pocoo-wsgi] testmail
+Message-ID: <1131141877.28078.3.camel@localhost.localdomain>
+
+this ist a testmail.
+
+just ignore me :-)
+
+-- 
+ubuntuusers :: fragen ist menschlich
+http://www.ubuntuusers.de
+
+
+

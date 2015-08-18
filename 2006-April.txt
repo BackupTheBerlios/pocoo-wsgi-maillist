@@ -1,0 +1,41 @@
+From marco.giusti at gmail.com  Sun Apr  2 20:00:12 2006
+From: marco.giusti at gmail.com (Marco Giusti)
+Date: Sun, 2 Apr 2006 20:00:12 +0200
+Subject: [Pocoo-wsgi] jinja anf python2.3
+Message-ID: <20060402180012.GB5711@localdomain>
+
+ciao! jinja 0.6 doesn't run with python2.3. is it possible a backport? 
+
+ciao
+m.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 191 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/pocoo-wsgi/attachments/20060402/79ae138a/attachment.pgp>
+
+From armin.ronacher at active-4.com  Sun Apr  2 20:31:56 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Sun, 02 Apr 2006 20:31:56 +0200
+Subject: [Pocoo-wsgi] jinja anf python2.3
+In-Reply-To: <20060402180012.GB5711@localdomain>
+References: <20060402180012.GB5711@localdomain>
+Message-ID: <1144002716.10321.13.camel@localhost>
+
+Hiho,
+
+On Sun, 2006-04-02 at 20:00 +0200, Marco Giusti wrote:
+> ciao! jinja 0.6 doesn't run with python2.3. is it possible a backport? 
+
+This was fixed in the current SVN version. We will release a new version
+in the next few days. You can now either use the SVN version or wait for
+the 0.7 release. Sorry for the inconvenience but we have forgotten to
+check the new parser with python2.3 :-(
+
+Regards,
+Armin
+
+
+

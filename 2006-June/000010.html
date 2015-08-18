@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/pocoo-wsgi/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%20arguments&In-Reply-To=%3CXFMail.20060613215358.rk-list%40koebler.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments</H1>
+    <B>rk-list at koebler.com</B> 
+    <A HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%20arguments&In-Reply-To=%3CXFMail.20060613215358.rk-list%40koebler.com%3E"
+       TITLE="[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments">rk-list at koebler.com
+       </A><BR>
+    <I>Tue Jun 13 21:53:58 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi,
+
+&gt;&gt;<i> First. There is no arithmetics tag since that should be done on the app
+</I>&gt;&gt;<i> side and not oin the template.
+</I>mostly, yes. and for the other cases maybe I'll build a small addition-tag
+or so.
+
+&gt;&gt;&gt;<i> {% range i from 0 to 9 %}
+</I>&gt;&gt;&gt;<i>   - {{loop.current}} {{ list.i }}
+</I>&gt;&gt;&gt;<i> {% endrange %}
+</I>&gt;&gt;&gt;<i> but &quot;list.i&quot; does not work, and something like &quot;list[i]&quot; is not possible.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The first example isn't possible. you
+</I>&gt;&gt;<i> should do this manipulation directly in the app.
+</I>no. the app. provides all the data - and the template defines how the data
+is displayed. and in my example: how many rows are displayed, i.e. per page,
+definitely belongs to the template.
+but maybe I can make the above example work.
+
+&gt;<i> Argh. There is a solution:
+</I>&gt;<i> 
+</I>&gt;<i> {% for elem in list %}
+</I>&gt;<i>   - {{ loop.current }} {{ elem }}
+</I>&gt;<i>   {% if loop.last %} {* add &quot;empty&quot; lines *}
+</I>&gt;<i>     {% range j from loop.counter0 to 10 %}
+</I>&gt;<i>       - {{ j }}
+</I>&gt;<i>     {% endrange %}
+</I>&gt;<i>   {% endif %}
+</I>&gt;<i> {% endfor %}
+</I>oh, thanks!
+
+thanks,
+Roland
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/pocoo-wsgi">More information about the pocoo-wsgi
+mailing list</a><br>
+</body></html>

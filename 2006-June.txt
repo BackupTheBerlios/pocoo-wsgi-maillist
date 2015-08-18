@@ -1,0 +1,257 @@
+From rk-list at koebler.com  Sun Jun 11 16:45:25 2006
+From: rk-list at koebler.com (rk-list at koebler.com)
+Date: Sun, 11 Jun 2006 16:45:25 +0200 (CEST)
+Subject: [Pocoo-wsgi] jinja: documentation ?
+Message-ID: <XFMail.20060611162934.rk-list@koebler.com>
+
+hi,
+
+is there any "reference-manual"-like documentation for jinja ?
+
+the documentation which comes with jinja (or which can be found
+at http://wsgiarea.pocoo.org/jinja/docs/) looks more like a
+"feature-list with some examples", and doesn't describe the
+jinja-syntax/features/parameters completely.
+
+(I started to extract the necessary information from the examples,
+ the documentation-strings and the sourcecode and create some kind
+ of "reference-manual" - but that's needless if there is alread such
+ a documentation...)
+
+
+Roland
+
+
+
+
+From rk-list at koebler.com  Mon Jun 12 00:40:18 2006
+From: rk-list at koebler.com (rk-list at koebler.com)
+Date: Mon, 12 Jun 2006 00:40:18 +0200 (CEST)
+Subject: [Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+Message-ID: <XFMail.20060612004018.rk-list@koebler.com>
+
+hi,
+
+I've got 2 questions about jinja:
+
+
+1. I want to display a defined number of lines - and if an appr. element of a
+list exists, it should be displayed.
+
+like (in python):
+list = ['a','b','c']
+for i in range(0,10):
+  print i,
+  if( i<=len(list) ): print list[i],
+  print
+
+in jinja, I would write it like:
+{% range i from 0 to 9 %}
+  - {{loop.current}} {{ list.i }}
+{% endrange %}
+but "list.i" does not work, and something like "list[i]" is not possible.
+
+so I tried something different:
+{% for elem in list %}
+  - {{loop.current}} {{ elem }}
+  {% if loop.last %} {* add "empty" lines *}
+    {% range j from loop.current to 10 %}
+      - {{j}}
+    {% endrange %}
+  {% endif %}
+{% endfor %}
+but unfortunately, this also doesn't work because "range" only takes integers.
+
+is there any solution for this ?
+
+
+2. is it possible to do some arithmetics in jinja ?
+i.e. {{ number + 5 }} or {{ 1 + 2 + 4 }}
+do I have to define a special tag for this, or is there anything else ?
+
+
+thanks,
+Roland
+
+
+
+
+From armin.ronacher at active-4.com  Tue Jun 13 21:20:21 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Tue, 13 Jun 2006 21:20:21 +0200
+Subject: [Pocoo-wsgi] jinja: documentation ?
+In-Reply-To: <XFMail.20060611162934.rk-list@koebler.com>
+References: <XFMail.20060611162934.rk-list@koebler.com>
+Message-ID: <1150226421.17952.203.camel@localhost>
+
+On Sun, 2006-06-11 at 16:45 +0200, rk-list at koebler.com wrote:
+> hi,
+> 
+> is there any "reference-manual"-like documentation for jinja ?
+> 
+> the documentation which comes with jinja (or which can be found
+> at http://wsgiarea.pocoo.org/jinja/docs/) looks more like a
+> "feature-list with some examples", and doesn't describe the
+> jinja-syntax/features/parameters completely.
+> 
+> (I started to extract the necessary information from the examples,
+>  the documentation-strings and the sourcecode and create some kind
+>  of "reference-manual" - but that's needless if there is alread such
+>  a documentation...)
+> 
+This is explained here:
+http://wsgiarea.pocoo.org/jinja/docs/basics-dev.html
+
+Regards,
+Armin
+
+
+
+From armin.ronacher at active-4.com  Tue Jun 13 21:23:01 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Tue, 13 Jun 2006 21:23:01 +0200
+Subject: [Pocoo-wsgi] jinja-question: loops, math, tags with variable
+	arguments
+In-Reply-To: <XFMail.20060612004018.rk-list@koebler.com>
+References: <XFMail.20060612004018.rk-list@koebler.com>
+Message-ID: <1150226581.17952.206.camel@localhost>
+
+On Mon, 2006-06-12 at 00:40 +0200, rk-list at koebler.com wrote:
+> in jinja, I would write it like:
+> {% range i from 0 to 9 %}
+>   - {{loop.current}} {{ list.i }}
+> {% endrange %}
+> but "list.i" does not work, and something like "list[i]" is not possible.
+> 
+> so I tried something different:
+> {% for elem in list %}
+>   - {{loop.current}} {{ elem }}
+>   {% if loop.last %} {* add "empty" lines *}
+>     {% range j from loop.current to 10 %}
+>       - {{j}}
+>     {% endrange %}
+>   {% endif %}
+> {% endfor %}
+
+First. There is no arithmetics tag since that should be done on the app
+side and not oin the template. The first example isn't possible. you
+should do this manipulation directly in the app.
+
+Regards,
+Armin
+
+
+
+From armin.ronacher at active-4.com  Tue Jun 13 21:32:05 2006
+From: armin.ronacher at active-4.com (Armin Ronacher)
+Date: Tue, 13 Jun 2006 21:32:05 +0200
+Subject: [Pocoo-wsgi] jinja-question: loops, math, tags with variable
+	arguments
+In-Reply-To: <1150226581.17952.206.camel@localhost>
+References: <XFMail.20060612004018.rk-list@koebler.com>
+	 <1150226581.17952.206.camel@localhost>
+Message-ID: <1150227126.17952.209.camel@localhost>
+
+On Tue, 2006-06-13 at 21:23 +0200, Armin Ronacher wrote:
+> On Mon, 2006-06-12 at 00:40 +0200, rk-list at koebler.com wrote:
+> > in jinja, I would write it like:
+> > {% range i from 0 to 9 %}
+> >   - {{loop.current}} {{ list.i }}
+> > {% endrange %}
+> > but "list.i" does not work, and something like "list[i]" is not possible.
+> > 
+> > so I tried something different:
+> > {% for elem in list %}
+> >   - {{loop.current}} {{ elem }}
+> >   {% if loop.last %} {* add "empty" lines *}
+> >     {% range j from loop.current to 10 %}
+> >       - {{j}}
+> >     {% endrange %}
+> >   {% endif %}
+> > {% endfor %}
+> 
+> First. There is no arithmetics tag since that should be done on the app
+> side and not oin the template. The first example isn't possible. you
+> should do this manipulation directly in the app.
+
+Argh. There is a solution:
+
+{% for elem in list %}
+  - {{ loop.current }} {{ elem }}
+  {% if loop.last %} {* add "empty" lines *}
+    {% range j from loop.counter0 to 10 %}
+      - {{ j }}
+    {% endrange %}
+  {% endif %}
+{% endfor %}
+
+Regards,
+Armin
+
+
+
+From rk-list at koebler.com  Tue Jun 13 21:53:58 2006
+From: rk-list at koebler.com (rk-list at koebler.com)
+Date: Tue, 13 Jun 2006 21:53:58 +0200 (CEST)
+Subject: [Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+In-Reply-To: <1150227126.17952.209.camel@localhost>
+Message-ID: <XFMail.20060613215358.rk-list@koebler.com>
+
+hi,
+
+>> First. There is no arithmetics tag since that should be done on the app
+>> side and not oin the template.
+mostly, yes. and for the other cases maybe I'll build a small addition-tag
+or so.
+
+>>> {% range i from 0 to 9 %}
+>>>   - {{loop.current}} {{ list.i }}
+>>> {% endrange %}
+>>> but "list.i" does not work, and something like "list[i]" is not possible.
+>>
+>> The first example isn't possible. you
+>> should do this manipulation directly in the app.
+no. the app. provides all the data - and the template defines how the data
+is displayed. and in my example: how many rows are displayed, i.e. per page,
+definitely belongs to the template.
+but maybe I can make the above example work.
+
+> Argh. There is a solution:
+> 
+> {% for elem in list %}
+>   - {{ loop.current }} {{ elem }}
+>   {% if loop.last %} {* add "empty" lines *}
+>     {% range j from loop.counter0 to 10 %}
+>       - {{ j }}
+>     {% endrange %}
+>   {% endif %}
+> {% endfor %}
+oh, thanks!
+
+thanks,
+Roland
+
+
+
+
+From rk-list at koebler.com  Tue Jun 13 21:54:12 2006
+From: rk-list at koebler.com (rk-list at koebler.com)
+Date: Tue, 13 Jun 2006 21:54:12 +0200 (CEST)
+Subject: [Pocoo-wsgi] jinja: documentation ?
+In-Reply-To: <1150226421.17952.203.camel@localhost>
+Message-ID: <XFMail.20060613215412.rk-list@koebler.com>
+
+hi,
+
+>> is there any "reference-manual"-like documentation for jinja ?
+> This is explained here:
+> http://wsgiarea.pocoo.org/jinja/docs/basics-dev.html
+unfortunately, there's only little explained here.
+so, I'll continue to write a reference-manual...
+
+cu,
+Roland
+
+
+
+

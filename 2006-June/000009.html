@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/pocoo-wsgi/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%0A%09arguments&In-Reply-To=%3C1150227126.17952.209.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments</H1>
+    <B>Armin Ronacher</B> 
+    <A HREF="mailto:pocoo-wsgi%40lists.berlios.de?Subject=Re%3A%20%5BPocoo-wsgi%5D%20jinja-question%3A%20loops%2C%20math%2C%20tags%20with%20variable%0A%09arguments&In-Reply-To=%3C1150227126.17952.209.camel%40localhost%3E"
+       TITLE="[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments">armin.ronacher at active-4.com
+       </A><BR>
+    <I>Tue Jun 13 21:32:05 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 2006-06-13 at 21:23 +0200, Armin Ronacher wrote:
+&gt;<i> On Mon, 2006-06-12 at 00:40 +0200, <A HREF="https://lists.berlios.de/mailman/listinfo/pocoo-wsgi">rk-list at koebler.com</A> wrote:
+</I>&gt;<i> &gt; in jinja, I would write it like:
+</I>&gt;<i> &gt; {% range i from 0 to 9 %}
+</I>&gt;<i> &gt;   - {{loop.current}} {{ list.i }}
+</I>&gt;<i> &gt; {% endrange %}
+</I>&gt;<i> &gt; but &quot;list.i&quot; does not work, and something like &quot;list[i]&quot; is not possible.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; so I tried something different:
+</I>&gt;<i> &gt; {% for elem in list %}
+</I>&gt;<i> &gt;   - {{loop.current}} {{ elem }}
+</I>&gt;<i> &gt;   {% if loop.last %} {* add &quot;empty&quot; lines *}
+</I>&gt;<i> &gt;     {% range j from loop.current to 10 %}
+</I>&gt;<i> &gt;       - {{j}}
+</I>&gt;<i> &gt;     {% endrange %}
+</I>&gt;<i> &gt;   {% endif %}
+</I>&gt;<i> &gt; {% endfor %}
+</I>&gt;<i> 
+</I>&gt;<i> First. There is no arithmetics tag since that should be done on the app
+</I>&gt;<i> side and not oin the template. The first example isn't possible. you
+</I>&gt;<i> should do this manipulation directly in the app.
+</I>
+Argh. There is a solution:
+
+{% for elem in list %}
+  - {{ loop.current }} {{ elem }}
+  {% if loop.last %} {* add &quot;empty&quot; lines *}
+    {% range j from loop.counter0 to 10 %}
+      - {{ j }}
+    {% endrange %}
+  {% endif %}
+{% endfor %}
+
+Regards,
+Armin
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable	arguments
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[Pocoo-wsgi] jinja-question: loops, math, tags with variable arguments
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/pocoo-wsgi">More information about the pocoo-wsgi
+mailing list</a><br>
+</body></html>
